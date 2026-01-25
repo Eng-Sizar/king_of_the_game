@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="King of the Game - المنصة الرقمية لأفضل مدربي الألعاب الاستراتيجية. ترتيب المحترفين، إحصائيات تفصيلية، ومجتمع تنافسي حصري.">
+    <title>King of the Game 👑 | المنصة الملكية للتنافس الاستراتيجي</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Preload important resources -->
+    <link rel="preload" href="1.jpg" as="image">
+</head>
+<body>
+    <!-- Header -->
+    <header class="king-header">
+        <div class="header-container">
+            <div class="logo-wrapper">
+                <div class="crown-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="logo-content">
+                    <h1 class="logo-title">
+                        <span class="logo-main">King of the</span>
+                        <span class="logo-sub">Game</span>
+                    </h1>
+                    <p class="logo-tagline">المنصة الملكية للتنافس الاستراتيجي</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="stats-badge">
+                    <i class="fas fa-users"></i>
+                    <span>مجتمع <strong id="header-count">0+</strong> مدرب</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="king-nav">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="#coaches" class="nav-link"><i class="fas fa-crown"></i> الترتيب الملكي</a></li>
+                    <li><a href="#rules" class="nav-link"><i class="fas fa-gavel"></i> قوانين المملكة</a></li>
+                    <li><a href="#quick-actions" class="nav-link"><i class="fas fa-bolt"></i> إجراءات سريعة</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="king-hero" id="home">
+        <div class="hero-overlay"></div>
+
+        <!-- صورة المنصة -->
+        <div class="platform-image">
+            <img src="1.jpg" alt="منصة King of the Game" loading="lazy" onerror="this.style.display='none'">
+            <div class="platform-overlay">
+                <h2 class="platform-title">منصتنا الملكية</h2>
+                <p class="platform-desc">أدوات متقدمة لإدارة الفرق وتحليل الأداء</p>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-crown">
+                <i class="fas fa-crown"></i>
+            </div>
+            <h1 class="hero-title">
+                مـرحـبـاً بك فـي مـمـلـكـة
+                <span class="hero-highlight">King Of The Game</span>
+            </h1>
+            <p class="hero-subtitle">منـصـة الـتـنـافـس الـمـلـكـي لـمـحـتـرفـي الألـعـاب الإسـتـراتـيـجـيـة</p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    <div>
+                        <span class="stat-number">1,250+</span>
+                        <span class="stat-label">لقب مكتسب</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-gamepad"></i>
+                    <div>
+                        <span class="stat-number">85+</span>
+                        <span class="stat-label">بطولة نشطة</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-medal"></i>
+                    <div>
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">مدرب محترف</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label">أداة تحليل</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Features -->
+    <section class="platform-features">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-tools"></i> مميزات المنصة الملكية</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>تحليل إحصائي متقدم</h3>
+                    <p>أدوات تحليل متكاملة لدراسة أداء الفرق واللاعبين</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>مساعد ذكي للتدريب</h3>
+                    <p>نظام ذكي يقدم نصائح استراتيجية بناءً على البيانات</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>بطولات حصرية</h3>
+                    <p>منافسات حصرية بجوائز قيمة للمدربين المتميزين</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>مجتمع تفاعلي</h3>
+                    <p>مناقشات واستراتيجيات مع أفضل المدربين العرب</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="king-main">
+        <!-- Quick Actions -->
+        <section class="quick-actions-section" id="quick-actions">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-bolt"></i> إجراءات سريعة</h2>
+                <div class="quick-actions-grid">
+                    <a href="https://ar.onlinesoccermanager.com/" target="_blank" rel="noopener noreferrer" class="quick-action royal">
+                        <div class="action-icon">
+                            <i class="fas fa-chess-king"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>لعبة المدرب الافضل</h3>
+                            <p>ابدأ رحلتك نحو العرش</p>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                    </a>
+
+                    <a href="https://chat.whatsapp.com/BMJsJ3YiJtS3kXtfiZoYYa" target="_blank" rel="noopener noreferrer" class="quick-action elite">
+                        <div class="action-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>جروب النتائج</h3>
+                            <p>نتائج البطولات الحصرية</p>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                    </a>
+
+                    <a href="https://chat.whatsapp.com/FGv3EM4K472BJG3WZDfqMY" target="_blank" rel="noopener noreferrer" class="quick-action noble">
+                        <div class="action-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="action-content">
+                            <h3>جروب المناقشات</h3>
+                            <p>نقاشات واستراتيجيات</p>
+                        </div>
+                        <div class="action-arrow">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kingdom Rules -->
+        <section class="rules-section" id="rules">
+            <div class="container">
+                <div class="rules-card">
+                    <div class="rules-header">
+                        <div class="rules-icon">
+                            <i class="fas fa-scroll"></i>
+                        </div>
+                        <h2 class="section-title">دستور المملكة</h2>
+                        <p class="section-subtitle">قوانين وقواعد المملكة لضمان التنافس الشريف</p>
+                    </div>
+
+                    <div class="rules-content">
+                        <div class="rules-grid">
+                            <div class="rule-item critical">
+                                <div class="rule-icon">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div class="rule-content">
+                                    <h3>الممنوعات الملكية</h3>
+                                    <p>يمنع منعاً باتاً الاستقالة من المنافسات أو استخدام الألفاظ البذيئة داخل المملكة.</p>
+                                </div>
+                            </div>
+
+                            <div class="rule-item warning">
+                                <div class="rule-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="rule-content">
+                                    <h3>عقوبات الاستقالة</h3>
+                                    <p>الاستقالة للمرة الثالثة تمنع المدرب نهائياً من المشاركة في منافسات المملكة.</p>
+                                </div>
+                            </div>
+
+                            <div class="rule-item success">
+                                <div class="rule-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="rule-content">
+                                    <h3>آداب المملكة</h3>
+                                    <p>الالتزام بالاحترام المتبادل والروح الرياضية في جميع المنافسات والنقاشات.</p>
+                                </div>
+                            </div>
+
+                            <div class="rule-item info">
+                                <div class="rule-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <div class="rule-content">
+                                    <h3>مكافآت التميز</h3>
+                                    <p>المدربون المتميزون يحصلون على امتيازات خاصة ودعم في البطولات الكبرى وايضا جوائز قيمة مثل عملات داخل اللعبه وغيرها.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rules-footer">
+                            <div class="kingdom-motto">
+                                <i class="fas fa-quote-right"></i>
+                                <p>في مملكتنا.. التنافس شرف، والاحترام واجب، والتميز هدف</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coaches Ranking -->
+        <section class="ranking-section" id="coaches">
+            <div class="container">
+                <!-- Header مع تأثيرات محسنة -->
+                <div class="section-header">
+                    <div class="section-title-wrapper">
+                        <div class="crown-decoration">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h2 class="section-title">
+                            <span class="title-text">الترتيب الملكي للمدربين</span>
+                        </h2>
+                        <div class="crown-decoration">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                    </div>
+                    <p class="section-subtitle">
+                        تنافس شريف بين نخبة المدربين للوصول إلى عرش التميز
+                    </p>
+                </div>
+
+                <!-- Tabs للتصفية -->
+                <div class="ranking-tabs">
+                    <div class="tabs-container">
+                        <button class="tab-btn active" data-filter="all">
+                            <i class="fas fa-list-ol"></i>
+                            <span>جميع المدربين</span>
+                        </button>
+                        <button class="tab-btn" data-filter="top">
+                            <i class="fas fa-trophy"></i>
+                            <span>المراكز العشرة الأولى</span>
+                        </button>
+                        <button class="tab-btn" data-filter="rising">
+                            <i class="fas fa-chart-line"></i>
+                            <span>الصاعدون هذا الأسبوع</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="stats-overview">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="total-coaches">0</span>
+                                <span class="stat-label">إجمالي المدربين</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-signal"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="active-now">0</span>
+                                <span class="stat-label">نشطون الآن</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="top-points">0</span>
+                                <span class="stat-label">أعلى نقاط</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-arrow-trend-up"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" id="avg-points">0</span>
+                                <span class="stat-label">متوسط النقاط</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ranking Table -->
+                <div class="ranking-container">
+                    <div class="table-wrapper">
+                        <!-- Table Header -->
+                        <div class="table-header enhanced-header">
+                            <div class="header-cell rank-header">
+                                <div class="header-content">
+                                    <i class="fas fa-hashtag"></i>
+                                    <span>المركز</span>
+                                </div>
+                            </div>
+                            <div class="header-cell coach-header">
+                                <div class="header-content">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>المدرب</span>
+                                </div>
+                            </div>
+                            <div class="header-cell stats-header">
+                                <div class="header-content">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>الإحصائيات</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table Body -->
+                        <div class="table-body enhanced-body" id="coaches-ranking">
+                            <div class="loading-state">
+                                <div class="spinner">
+                                    <i class="fas fa-crown fa-spin"></i>
+                                </div>
+                                <p>جاري تحميل بيانات المدربين...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="ranking-pagination">
+                    <div class="pagination-controls">
+                        <button class="page-btn prev-btn" disabled>
+                            <i class="fas fa-chevron-right"></i>
+                            <span>السابق</span>
+                        </button>
+                        <div class="page-numbers" id="page-numbers-container">
+                            <button class="page-number active">1</button>
+                        </div>
+                        <button class="page-btn next-btn" disabled>
+                            <span>التالي</span>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    <div class="items-per-page">
+                        <span>عرض</span>
+                        <select class="page-select" id="items-per-page">
+                            <option value="10">10</option>
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>مدرب في الصفحة</span>
+                    </div>
+                </div>
+
+                <!-- Legend & Info -->
+                <div class="ranking-info">
+                    <div class="legend-container">
+                        <h3 class="legend-title">
+                            <i class="fas fa-info-circle"></i>
+                            رموز ودلالات الترتيب
+                        </h3>
+                        <div class="legend-grid">
+                            <div class="legend-item elite">
+                                <div class="legend-icon">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <div class="legend-content">
+                                    <span class="legend-rank">المركز 1</span>
+                                    <span class="legend-title">ملك المنصة</span>
+                                    <span class="legend-desc">صاحب أعلى نقاط وتفاعل</span>
+                                </div>
+                            </div>
+                            <div class="legend-item royal">
+                                <div class="legend-icon">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <div class="legend-content">
+                                    <span class="legend-rank">المراكز 2-5</span>
+                                    <span class="legend-title">أمراء المنصة</span>
+                                    <span class="legend-desc">نخبة المدربين المتميزين</span>
+                                </div>
+                            </div>
+                            <div class="legend-item noble">
+                                <div class="legend-icon">
+                                    <i class="fas fa-shield-halved"></i>
+                                </div>
+                                <div class="legend-content">
+                                    <span class="legend-rank">المراكز 6-15</span>
+                                    <span class="legend-title">نبلاء المنصة</span>
+                                    <span class="legend-desc">مدربون بارزون ومؤثرون</span>
+                                </div>
+                            </div>
+                            <div class="legend-item knight">
+                                <div class="legend-icon">
+                                    <i class="fas fa-helmet-battle"></i>
+                                </div>
+                                <div class="legend-content">
+                                    <span class="legend-rank">المراكز 16+</span>
+                                    <span class="legend-title">فرسان المنصة</span>
+                                    <span class="legend-desc">مدربون نشطون وصاعدون</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-background">
+            <div class="footer-gradient-overlay"></div>
+            <div class="footer-effect footer-effect-1"></div>
+            <div class="footer-effect footer-effect-2"></div>
+        </div>
+
+        <div class="footer-content">
+            <!-- Social Links -->
+            <div class="social-links-footer">
+                <a href="https://wa.me/message/IIIHPVUIHY74H1" target="_blank" rel="noopener noreferrer" class="social-link whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://t.me/I_X_X_T" target="_blank" rel="noopener noreferrer" class="social-link telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://www.instagram.com/i_x_x_t" target="_blank" rel="noopener noreferrer" class="social-link instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="footer-copyright">
+                <div class="copyright-content">
+                    <p class="developer-text">
+                        <span class="gradient-text">&lt; Developed By &gt;</span>
+                        <a href="https://hamza-hesham.vercel.app/" target="_blank" rel="noopener noreferrer" class="developer-link">
+                            Hamza Hesham
+                        </a>
+                        <span class="gradient-text">&lt; All Copy Rights Reserved @2025 &gt;</span>
+                    </p>
+                    <p class="footer-tagline">
+                        👑 King of the Game - حيث يُصنع التاريخ 👑
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="app.js" defer></script>
+    <script src="settings.js" defer></script>
+</body>
+</html>
