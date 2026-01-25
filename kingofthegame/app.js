@@ -1,529 +1,379 @@
-// إدارة السمات والتخصيصات
-const ThemeManager = {
-  currentTheme: 'royal',
-  
-  themes: {
-    royal: {
-      dark: '#0a0a1a',
-      card: 'rgba(20, 20, 40, 0.9)',
-      gold: '#ffd700',
-      purple: '#9370db',
-      blue: '#4169e1'
-    },
-    dark: {
-      dark: '#121212',
-      card: 'rgba(30, 30, 30, 0.9)',
-      gold: '#daa520',
-      purple: '#9c27b0',
-      blue: '#2196f3'
-    },
-    elite: {
-      dark: '#0f172a',
-      card: 'rgba(30, 41, 59, 0.9)',
-      gold: '#fbbf24',
-      purple: '#8b5cf6',
-      blue: '#3b82f6'
-    }
-  },
-  
-  init() {
-    this.loadTheme();
-    this.setupThemeToggle();
-  },
-  
-  loadTheme() {
-    const savedTheme = localStorage.getItem('king_theme') || 'royal';
-    this.applyTheme(savedTheme);
-  },
-  
-  applyTheme(themeName) {
-    const theme = this.themes[themeName];
-    if (!theme) return;
+// ========================================
+// 👑 King of the Game - Main Application
+// ========================================
+
+// تهيئة Supabase
+let supabaseClient;
+
+function initSupabase() {
+  if (!supabaseClient) {
+    const SUPABASE_URL = 'https://mmgxgalxbnfjgglkvfcv.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tZ3hnYWx4Ym5mamdnbGt2ZmN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkyODY3OTMsImV4cCI6MjA4NDg2Mjc5M30.gRNxxL5zPVL6asD8-bZ6F8UZ24c-p1gytPJ1OSevBoY';
     
-    this.currentTheme = themeName;
-    
-    // تحديث متغيرات CSS
-    const root = document.documentElement;
-    root.style.setProperty('--royal-dark', theme.dark);
-    root.style.setProperty('--royal-card', theme.card);
-    root.style.setProperty('--royal-gold', theme.gold);
-    root.style.setProperty('--royal-purple', theme.purple);
-    root.style.setProperty('--royal-blue', theme.blue);
-    
-    // حفظ التفضيل
-    localStorage.setItem('king_theme', themeName);
-    
-    // إشعار
-    if (window.KingApp) {
-      KingApp.showNotification(`تم التبديل إلى سمة ${themeName}`, 'success');
-    }
-  },
-  
-  setupThemeToggle() {
-    // يمكن إضافة زر تبديل السمات في المستقبل
-    const themeToggle = document.createElement('button');
-    themeToggle.id = 'theme-toggle';
-    themeToggle.innerHTML = '<i class="fas fa-palette"></i>';
-    themeToggle.title = 'تبديل السمة';
-    themeToggle.style.cssText = `
-      position: fixed;
-      bottom: 90px;
-      left: 30px;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--royal-purple), var(--royal-blue));
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      z-index: 1000;
-      box-shadow: 0 5px 15px var(--royal-shadow);
-      transition: all 0.3s ease;
-    `;
-    
-    themeToggle.addEventListener('click', () => {
-      const themes = Object.keys(this.themes);
-      const currentIndex = themes.indexOf(this.currentTheme);
-      const nextIndex = (currentIndex + 1) % themes.length;
-      this.applyTheme(themes[nextIndex]);
-    });
-    
-    themeToggle.addEventListener('mouseenter', () => {
-      themeToggle.style.transform = 'scale(1.1) rotate(15deg)';
-    });
-    
-    themeToggle.addEventListener('mouseleave', () => {
-      themeToggle.style.transform = 'scale(1) rotate(0)';
-    });
-    
-    document.body.appendChild(themeToggle);
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('✅ Supabase initialized');
   }
-};
-
-// إدارة التفضيلات المحلية
-const Preferences = {
-  init() {
-    this.loadPreferences();
-  },
-  
-  preferences: {
-    autoRefresh: true,
-    itemsPerPage: 25,
-    showOnlineOnly: false,
-    notifications: true
-  },
-  
-  loadPreferences() {
-    try {
-      const saved = localStorage.getItem('king_preferences');
-      if (saved) {
-        this.preferences = { ...this.preferences, ...JSON.parse(saved) };
-      }
-    } catch (error) {
-      console.warn('⚠️ خطأ في تحميل التفضيلات:', error);
-    }
-  },
-  
-  savePreferences() {
-    try {
-      localStorage.setItem('king_preferences', JSON.stringify(this.preferences));
-    } catch (error) {
-      console.warn('⚠️ خطأ في حفظ التفضيلات:', error);
-    }
-  },
-  
-  setPreference(key, value) {
-    this.preferences[key] = value;
-    this.savePreferences();
-  },
-  
-  getPreference(key) {
-    return this.preferences[key];
-  }
-};
-
-// أدوات مساعدة
-const Utils = {
-  // تنسيق الأرقام
-  formatNumber(num) {
-    if (!num && num !== 0) return '0';
-    
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
-    }
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
-  },
-  
-  // تنسيق التاريخ
-  formatDate(date) {
-    if (!date) return 'غير محدد';
-    
-    try {
-      const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
-      return new Date(date).toLocaleDateString('ar-SA', options);
-    } catch (error) {
-      return 'تاريخ غير صالح';
-    }
-  },
-  
-  // نسخ للنصوص
-  copyToClipboard(text) {
-    if (!navigator.clipboard) {
-      this.fallbackCopyToClipboard(text);
-      return;
-    }
-    
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        if (window.KingApp) {
-          KingApp.showNotification('تم النسخ إلى الحافظة', 'success');
-        }
-      })
-      .catch(err => {
-        console.error('فشل النسخ:', err);
-        this.fallbackCopyToClipboard(text);
-      });
-  },
-  
-  // طريقة بديلة للنسخ
-  fallbackCopyToClipboard(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.opacity = '0';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-      document.execCommand('copy');
-      if (window.KingApp) {
-        KingApp.showNotification('تم النسخ إلى الحافظة', 'success');
-      }
-    } catch (err) {
-      console.error('فشل النسخ البديل:', err);
-    }
-    
-    document.body.removeChild(textArea);
-  },
-  
-  // تنزيل البيانات
-  downloadData(data, filename = 'data.json') {
-    try {
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      if (window.KingApp) {
-        KingApp.showNotification('تم تنزيل البيانات بنجاح', 'success');
-      }
-    } catch (error) {
-      console.error('فشل تنزيل البيانات:', error);
-      if (window.KingApp) {
-        KingApp.showNotification('فشل تنزيل البيانات', 'error');
-      }
-    }
-  }
-};
-
-// تحسينات للواجهة
-const UIEnhancements = {
-  init() {
-    this.addSmoothScrolling();
-    this.addBackToTop();
-    this.addProgressIndicator();
-    this.addTooltips();
-  },
-  
-  addSmoothScrolling() {
-    // إضافة التمرير السلس للروابط الداخلية
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  },
-  
-  addBackToTop() {
-    // إنشاء زر العودة للأعلى
-    const backToTopButton = document.createElement('button');
-    backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    backToTopButton.className = 'back-to-top';
-    backToTopButton.title = 'العودة للأعلى';
-    backToTopButton.style.cssText = `
-      position: fixed;
-      bottom: 30px;
-      left: 30px;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--royal-purple), var(--royal-blue));
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      z-index: 1000;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px var(--royal-shadow);
-    `;
-    
-    document.body.appendChild(backToTopButton);
-    
-    // إظهار/إخفاء الزر عند التمرير
-    const toggleButton = () => {
-      if (window.scrollY > 300) {
-        backToTopButton.style.opacity = '1';
-        backToTopButton.style.transform = 'translateY(0)';
-      } else {
-        backToTopButton.style.opacity = '0';
-        backToTopButton.style.transform = 'translateY(20px)';
-      }
-    };
-    
-    window.addEventListener('scroll', toggleButton);
-    toggleButton(); // التحقق الأولي
-    
-    // حدث النقر
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-    
-    // تأثيرات hover
-    backToTopButton.addEventListener('mouseenter', () => {
-      backToTopButton.style.transform = 'translateY(-3px)';
-      backToTopButton.style.boxShadow = '0 8px 20px var(--royal-shadow)';
-    });
-    
-    backToTopButton.addEventListener('mouseleave', () => {
-      backToTopButton.style.transform = window.scrollY > 300 ? 'translateY(0)' : 'translateY(20px)';
-      backToTopButton.style.boxShadow = '0 5px 15px var(--royal-shadow)';
-    });
-  },
-  
-  addProgressIndicator() {
-    // شريط تقدم التمرير
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    progressBar.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--royal-gold), var(--royal-purple));
-      z-index: 9999;
-      transition: width 0.1s ease;
-    `;
-    
-    document.body.appendChild(progressBar);
-    
-    // تحديث شريط التقدم
-    const updateProgressBar = () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-      progressBar.style.width = scrolled + '%';
-    };
-    
-    window.addEventListener('scroll', updateProgressBar);
-    window.addEventListener('resize', updateProgressBar);
-    updateProgressBar(); // التحقق الأولي
-  },
-  
-  addTooltips() {
-    // إضافة تلميحات للأيقونات
-    const elementsWithTooltip = document.querySelectorAll('[data-tooltip]');
-    
-    elementsWithTooltip.forEach(element => {
-      const tooltipText = element.dataset.tooltip;
-      
-      element.addEventListener('mouseenter', (e) => {
-        const tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        tooltip.textContent = tooltipText;
-        tooltip.style.cssText = `
-          position: absolute;
-          background: var(--royal-card);
-          color: var(--text-royal);
-          padding: 0.5rem 0.8rem;
-          border-radius: var(--radius-sm);
-          font-size: 0.85rem;
-          white-space: nowrap;
-          z-index: 10000;
-          box-shadow: 0 5px 15px var(--royal-shadow);
-          border: 1px solid var(--royal-border);
-          pointer-events: none;
-          opacity: 0;
-          transform: translateY(10px);
-          transition: opacity 0.2s, transform 0.2s;
-        `;
-        
-        document.body.appendChild(tooltip);
-        
-        const rect = element.getBoundingClientRect();
-        tooltip.style.top = `${rect.top - tooltip.offsetHeight - 10}px`;
-        tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
-        
-        // إظهار التلميحة
-        setTimeout(() => {
-          tooltip.style.opacity = '1';
-          tooltip.style.transform = 'translateY(0)';
-        }, 10);
-        
-        // تخزين المرجع
-        element._tooltip = tooltip;
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        if (element._tooltip) {
-          element._tooltip.remove();
-          delete element._tooltip;
-        }
-      });
-    });
-  }
-};
-
-// تهيئة كل الميزات عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-  // تهيئة إدارة السمات
-  ThemeManager.init();
-  
-  // تهيئة التفضيلات
-  Preferences.init();
-  
-  // تحسينات الواجهة
-  UIEnhancements.init();
-  
-  // إضافة أنماط إضافية
-  addAdditionalStyles();
-});
-
-// إضافة أنماط CSS إضافية
-function addAdditionalStyles() {
-  const styles = document.createElement('style');
-  styles.textContent = `
-    /* تحسينات للواجهة */
-    .back-to-top:hover {
-      transform: translateY(-3px) !important;
-      box-shadow: 0 8px 20px var(--royal-shadow) !important;
-    }
-    
-    /* تأثيرات النقر */
-    .coach-row-enhanced,
-    .quick-action,
-    .tab-btn,
-    .page-btn,
-    .page-number {
-      cursor: pointer;
-      user-select: none;
-    }
-    
-    /* تحسينات للشاشات الكبيرة */
-    @media (min-width: 1600px) {
-      .king-main {
-        max-width: 1600px;
-      }
-      
-      .container {
-        max-width: 1400px;
-      }
-    }
-    
-    /* وضع الطباعة */
-    @media print {
-      .king-nav,
-      .quick-actions-section,
-      .back-to-top,
-      .scroll-progress,
-      .social-links-footer,
-      #theme-toggle {
-        display: none !important;
-      }
-      
-      .ranking-container {
-        box-shadow: none !important;
-        border: 1px solid #ddd !important;
-      }
-      
-      .coach-row-enhanced {
-        page-break-inside: avoid;
-      }
-    }
-    
-    /* تحسينات الوصول */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-    
-    /* التركيز للواجهة */
-    :focus-visible {
-      outline: 2px solid var(--royal-gold);
-      outline-offset: 2px;
-    }
-    
-    /* تلميحات */
-    .tooltip {
-      animation: tooltipFadeIn 0.2s ease-out;
-    }
-    
-    @keyframes tooltipFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  `;
-  
-  document.head.appendChild(styles);
+  return supabaseClient;
 }
 
-// تصدير الوحدات للاستخدام العام
-window.Settings = {
-  ThemeManager,
-  Preferences,
-  Utils
+// ========================================
+// 🎯 King App - التطبيق الرئيسي
+// ========================================
+const KingApp = {
+  coaches: [],
+  filteredCoaches: [],
+  currentPage: 1,
+  itemsPerPage: 25,
+  currentFilter: 'all',
+
+  // تهيئة التطبيق
+  async init() {
+    console.log('👑 بدء تحميل King of the Game...');
+    
+    try {
+      await this.loadCoaches();
+      this.setupEventListeners();
+      this.updateStats();
+      console.log('✅ تم تحميل التطبيق بنجاح');
+    } catch (error) {
+      console.error('❌ خطأ في تحميل التطبيق:', error);
+      this.showError('حدث خطأ في تحميل البيانات');
+    }
+  },
+
+  // جلب بيانات المدربين من Supabase
+  async loadCoaches() {
+    try {
+      console.log('🔄 بدء جلب البيانات من Supabase...');
+      
+      const loadingElement = document.getElementById('coaches-ranking');
+      if (loadingElement) {
+        loadingElement.innerHTML = `
+          <div class="loading-state">
+            <div class="spinner">
+              <i class="fas fa-crown fa-spin"></i>
+            </div>
+            <p>جاري تحميل بيانات المدربين...</p>
+          </div>
+        `;
+      }
+
+      // تهيئة Supabase
+      const supabase = initSupabase();
+
+      console.log('📡 جلب البيانات من جدول coaches...');
+      
+      // جلب البيانات من Supabase
+      const { data, error } = await supabase
+        .from('coaches')
+        .select('*')
+        .order('total_titles', { ascending: false });
+
+      console.log('📊 النتيجة:', { data, error });
+
+      if (error) {
+        console.error('❌ خطأ Supabase:', error);
+        throw error;
+      }
+
+      if (!data || data.length === 0) {
+        console.warn('⚠️ لا توجد بيانات');
+        this.showError('لا توجد بيانات في قاعدة البيانات. يرجى إدخال البيانات أولاً.');
+        return;
+      }
+
+      // إضافة ترتيب للمدربين
+      this.coaches = data.map((coach, index) => ({
+        ...coach,
+        rank: index + 1
+      }));
+
+      this.filteredCoaches = [...this.coaches];
+      this.renderCoaches();
+      this.updateStats();
+      
+      console.log(`✅ تم تحميل ${this.coaches.length} مدرب بنجاح`);
+    } catch (error) {
+      console.error('❌ خطأ في جلب البيانات:', error);
+      console.error('تفاصيل الخطأ:', error.message);
+      this.showError(`فشل الاتصال بقاعدة البيانات: ${error.message}`);
+    }
+  },
+
+  // عرض المدربين
+  renderCoaches() {
+    const container = document.getElementById('coaches-ranking');
+    if (!container) return;
+
+    if (this.filteredCoaches.length === 0) {
+      container.innerHTML = `
+        <div class="loading-state">
+          <p>لا توجد نتائج</p>
+        </div>
+      `;
+      return;
+    }
+
+    // حساب الصفحات
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    const pageCoaches = this.filteredCoaches.slice(startIndex, endIndex);
+
+    // عرض المدربين
+    container.innerHTML = pageCoaches.map(coach => this.createCoachRow(coach)).join('');
+
+    // تحديث الترقيم
+    this.updatePagination();
+  },
+
+  // إنشاء صف المدرب
+  createCoachRow(coach) {
+    const category = this.getCategory(coach.rank);
+    const icon = this.getCategoryIcon(coach.rank);
+    
+    return `
+      <div class="coach-row-enhanced ${category}">
+        <div class="rank-display ${category}">
+          <i class="${icon}"></i>
+          <span>${coach.rank}</span>
+        </div>
+        
+        <div class="coach-info-enhanced">
+          <div class="coach-avatar-enhanced">
+            <div class="avatar-placeholder">
+              ${coach.coach_name.charAt(0)}
+            </div>
+          </div>
+          
+          <div class="coach-details-enhanced">
+            <div class="coach-name">
+              ${coach.coach_name}
+              <span class="coach-title">${this.getCategoryTitle(coach.rank)}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stats-display-enhanced">
+          <div class="stat-badge-enhanced">
+            <span class="stat-value">${coach.total_titles}</span>
+            <span class="stat-label-small">بطولة</span>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  // تحديد الفئة حسب الترتيب
+  getCategory(rank) {
+    if (rank === 1) return 'king';
+    if (rank <= 5) return 'prince';
+    if (rank <= 15) return 'noble';
+    return 'knight';
+  },
+
+  // الحصول على أيقونة الفئة
+  getCategoryIcon(rank) {
+    if (rank === 1) return 'fas fa-crown';
+    if (rank <= 5) return 'fas fa-gem';
+    if (rank <= 15) return 'fas fa-shield-halved';
+    return 'fas fa-helmet-battle';
+  },
+
+  // الحصول على لقب الفئة
+  getCategoryTitle(rank) {
+    if (rank === 1) return 'ملك المنصة';
+    if (rank <= 5) return 'أمير المنصة';
+    if (rank <= 15) return 'نبيل المنصة';
+    return 'فارس المنصة';
+  },
+
+  // تحديث الإحصائيات
+  updateStats() {
+    // إجمالي المدربين
+    const totalCoaches = document.getElementById('total-coaches');
+    if (totalCoaches) {
+      totalCoaches.textContent = this.coaches.length;
+    }
+
+    // النشطون الآن (عشوائي للتجربة)
+    const activeNow = document.getElementById('active-now');
+    if (activeNow) {
+      activeNow.textContent = Math.floor(this.coaches.length * 0.3);
+    }
+
+    // أعلى نقاط
+    const topPoints = document.getElementById('top-points');
+    if (topPoints) {
+      topPoints.textContent = this.coaches.length > 0 ? this.coaches[0].total_titles : 0;
+    }
+
+    // متوسط النقاط
+    const avgPoints = document.getElementById('avg-points');
+    if (avgPoints) {
+      const avg = this.coaches.length > 0 
+        ? Math.round(this.coaches.reduce((sum, c) => sum + c.total_titles, 0) / this.coaches.length)
+        : 0;
+      avgPoints.textContent = avg;
+    }
+
+    // تحديث العدد في الهيدر
+    const headerCount = document.getElementById('header-count');
+    if (headerCount) {
+      headerCount.textContent = this.coaches.length + '+';
+    }
+  },
+
+  // تحديث الترقيم
+  updatePagination() {
+    const totalPages = Math.ceil(this.filteredCoaches.length / this.itemsPerPage);
+    const container = document.getElementById('page-numbers-container');
+    
+    if (!container) return;
+
+    let pagesHTML = '';
+    
+    // عرض 5 صفحات كحد أقصى
+    let startPage = Math.max(1, this.currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pagesHTML += `
+        <button class="page-number ${i === this.currentPage ? 'active' : ''}" data-page="${i}">
+          ${i}
+        </button>
+      `;
+    }
+
+    container.innerHTML = pagesHTML;
+
+    // تحديث أزرار السابق والتالي
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (prevBtn) {
+      prevBtn.disabled = this.currentPage === 1;
+    }
+    
+    if (nextBtn) {
+      nextBtn.disabled = this.currentPage === totalPages;
+    }
+  },
+
+  // إعداد مستمعي الأحداث
+  setupEventListeners() {
+    // التبويبات
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        e.target.closest('.tab-btn').classList.add('active');
+        
+        const filter = e.target.closest('.tab-btn').dataset.filter;
+        this.applyFilter(filter);
+      });
+    });
+
+    // الترقيم
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('page-number')) {
+        this.currentPage = parseInt(e.target.dataset.page);
+        this.renderCoaches();
+      }
+    });
+
+    // السابق والتالي
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+          this.renderCoaches();
+        }
+      });
+    }
+    
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const totalPages = Math.ceil(this.filteredCoaches.length / this.itemsPerPage);
+        if (this.currentPage < totalPages) {
+          this.currentPage++;
+          this.renderCoaches();
+        }
+      });
+    }
+
+    // تغيير عدد العناصر في الصفحة
+    const itemsPerPageSelect = document.getElementById('items-per-page');
+    if (itemsPerPageSelect) {
+      itemsPerPageSelect.addEventListener('change', (e) => {
+        this.itemsPerPage = parseInt(e.target.value);
+        this.currentPage = 1;
+        this.renderCoaches();
+      });
+    }
+
+    // التنقل السلس
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        e.target.classList.add('active');
+      });
+    });
+  },
+
+  // تطبيق الفلتر
+  applyFilter(filter) {
+    this.currentFilter = filter;
+    this.currentPage = 1;
+
+    switch(filter) {
+      case 'top':
+        this.filteredCoaches = this.coaches.slice(0, 10);
+        break;
+      case 'rising':
+        // المدربين الصاعدون (نفترض أنهم الأحدث)
+        this.filteredCoaches = [...this.coaches].reverse().slice(0, 20);
+        break;
+      default:
+        this.filteredCoaches = [...this.coaches];
+    }
+
+    this.renderCoaches();
+  },
+
+  // عرض خطأ
+  showError(message) {
+    const container = document.getElementById('coaches-ranking');
+    if (container) {
+      container.innerHTML = `
+        <div class="loading-state">
+          <div class="spinner">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <p style="color: var(--royal-red);">${message}</p>
+          <button onclick="KingApp.loadCoaches()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--royal-purple); color: white; border: none; border-radius: 8px; cursor: pointer;">
+            إعادة المحاولة
+          </button>
+        </div>
+      `;
+    }
+  },
+
+  // إظهار إشعار
+  showNotification(message, type = 'info') {
+    console.log(`${type.toUpperCase()}: ${message}`);
+  }
 };
 
-console.log('⚙️ إعدادات الموقع جاهزة للاستخدام');
+// تهيئة التطبيق عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+  KingApp.init();
+});
+
+// تصدير للاستخدام العام
+window.KingApp = KingApp;

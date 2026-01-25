@@ -3,7 +3,7 @@ const Config = {
   // إعدادات Supabase
   supabase: {
     url: 'https://mmgxgalxbnfjgglkvfcv.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tZ3hnYWx4Ym5mamdnbGt2ZmN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzODk0OTEsImV4cCI6MjA1MDk2NTQ5MX0.-pA1u1i85fw-ek1sQeQg6Aqicm21Odye0mU3TyDeMn4',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tZ3hnYWx4Ym5mamdnbGt2ZmN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkyODY3OTMsImV4cCI6MjA4NDg2Mjc5M30.gRNxxL5zPVL6asD8-bZ6F8UZ24c-p1gytPJ1OSevBoY',
   },
   
   // إعدادات التطبيق
