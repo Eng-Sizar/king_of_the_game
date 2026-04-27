@@ -2,28 +2,22 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <!-- استبدل سطر viewport الحالي بهذا -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="King of the Game - المنصة الرقمية لأفضل مدربي الألعاب الاستراتيجية. ترتيب المحترفين، إحصائيات تفصيلية، ومجتمع تنافسي حصري.">
     <title>Creative Developer | Hamza Hesham 😁💙</title>
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- CSS -->
     <link rel="stylesheet" href="/kingofthegame/style.css">
     
-    <!-- Preload important resources -->
     <link rel="preload" href="1.jpg" as="image">
 </head>
 <body>
-    <!-- Header -->
     <header class="king-header">
         <div class="header-container">
             <div class="logo-wrapper">
@@ -47,7 +41,6 @@
             </div>
         </div>
 
-        <!-- Navigation -->
         <nav class="king-nav">
             <div class="nav-container">
                 <ul class="nav-links">
@@ -60,11 +53,9 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="king-hero" id="home">
         <div class="hero-overlay"></div>
 
-        <!-- صورة المنصة -->
         <div class="platform-image">
             <img src="1.jpg" alt="منصة King of the Game" loading="lazy" onerror="this.style.display='none'">
             <div class="platform-overlay">
@@ -116,7 +107,6 @@
         </div>
     </section>
 
-    <!-- Platform Features -->
     <section class="platform-features">
         <div class="container">
             <h2 class="section-title"><i class="fas fa-tools"></i> مميزات المنصة الملكية</h2>
@@ -153,9 +143,7 @@
         </div>
     </section>
 
-    <!-- Main Content -->
     <main class="king-main">
-        <!-- Quick Actions -->
         <section class="quick-actions-section" id="quick-actions">
             <div class="container">
                 <h2 class="section-title"><i class="fas fa-bolt"></i> إجراءات سريعة</h2>
@@ -202,7 +190,6 @@
             </div>
         </section>
 
-        <!-- Kingdom Rules -->
         <section class="rules-section" id="rules">
             <div class="container">
                 <div class="rules-card">
@@ -268,10 +255,8 @@
             </div>
         </section>
 
-        <!-- Coaches Ranking -->
         <section class="ranking-section" id="coaches">
             <div class="container">
-                <!-- Header مع تأثيرات محسنة -->
                 <div class="section-header">
                     <div class="section-title-wrapper">
                         <div class="crown-decoration">
@@ -288,8 +273,7 @@
                         تنافس شريف بين نخبة المدربين للوصول إلى عرش التميز
                     </p>
                 </div>
-
-                <!-- Tabs للتصفية -->
+                
                 <div class="ranking-tabs">
                     <div class="tabs-container">
                         <button class="tab-btn active" data-filter="all">
@@ -307,7 +291,6 @@
                     </div>
                 </div>
 
-                <!-- Stats Overview -->
                 <div class="stats-overview">
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -349,10 +332,8 @@
                     </div>
                 </div>
 
-                <!-- Ranking Table -->
                 <div class="ranking-container">
                     <div class="table-wrapper">
-                        <!-- Table Header -->
                         <div class="table-header enhanced-header">
                             <div class="header-cell rank-header">
                                 <div class="header-content">
@@ -374,7 +355,6 @@
                             </div>
                         </div>
 
-                        <!-- Table Body -->
                         <div class="table-body enhanced-body" id="coaches-ranking">
                             <div class="loading-state">
                                 <div class="spinner">
@@ -386,7 +366,6 @@
                     </div>
                 </div>
 
-                <!-- Pagination -->
                 <div class="ranking-pagination">
                     <div class="pagination-controls">
                         <button class="page-btn prev-btn" disabled>
@@ -411,7 +390,6 @@
                     </div>
                 </div>
 
-                <!-- Legend & Info -->
                 <div class="ranking-info">
                     <div class="legend-container">
                         <h3 class="legend-title">
@@ -466,7 +444,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer dir="ltr" class="site-footer">
         <div class="footer-background">
             <div class="footer-gradient-overlay"></div>
@@ -475,7 +452,6 @@
         </div>
 
         <div class="footer-content">
-            <!-- Social Links -->
             <div class="social-links-footer">
                 <a href="https://wa.me/message/IIIHPVUIHY74H1" target="_blank" rel="noopener noreferrer" class="social-link whatsapp">
                     <i class="fab fa-whatsapp"></i>
@@ -488,7 +464,6 @@
                 </a>
             </div>
 
-            <!-- Copyright Section -->
             <div class="footer-copyright">
                 <div class="copyright-content">
                     <p class="developer-text">
@@ -506,7 +481,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="/kingofthegame/settings.js" defer></script>
     <script src="/kingofthegame/app.js" defer></script>
